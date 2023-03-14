@@ -7,7 +7,7 @@ public class CliOutput implements Output {
     }
 
     @Override
-    public void showStrikesAndBalls(Baseball baseball) {
-        System.out.println(MessageFormat.format("{0} 볼, {1} 스트라이크", baseball.getBall(), baseball.getStrike()));
+    public void showBallCount(BallCount ballCount) {
+        System.out.println(MessageFormat.format("{0} 볼, {1} 스트라이크", ballCount.getBall(), ballCount.getStrike()));
     }
 }

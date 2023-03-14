@@ -1,9 +1,9 @@
-public class Baseball {
+public class BallCount {
 
     private final int strike;
     private final int ball;
 
-    public Baseball(int strike, int ball) {
+    public BallCount(int strike, int ball) {
         this.strike = strike;
         this.ball = ball;
     }

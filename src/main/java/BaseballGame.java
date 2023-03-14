@@ -2,9 +2,9 @@ import java.io.IOException;
 
 public class BaseballGame {
 
-    private Input input;
-    private Output output;
-    private NumberGenerator numberGenerator;
+    private final Input input;
+    private final Output output;
+    private final NumberGenerator numberGenerator;
 
     public BaseballGame(Input input, Output output, NumberGenerator numberGenerator) {
         this.input = input;
@@ -14,29 +14,36 @@ public class BaseballGame {
 
     public boolean start() throws IOException {
         String answer = numberGenerator.generate();
-
-        while (true) {
-            String userNumber = input.input("숫자를 입력해주세요 : ");
-            Baseball baseball = getBaseball(userNumber, answer);
-            if (baseball.isOut()) {
-                return askContinue();
-            } else {
-                output.showStrikesAndBalls(baseball);
-            }
-        }
+        System.out.println(answer);
+        while (!duringGame(answer));
+        return askContinue();
     }
 
-    private Baseball getBaseball(String userNumber, String answer) {
+    private boolean duringGame(String answer) throws IOException {
+        String userNumber = input.input("숫자를 입력해주세요 : ");
+        BallCount ballCount = getBallCount(userNumber, answer);
+        output.showBallCount(ballCount);
+        return ballCount.isOut();
+    }
+
+    private BallCount getBallCount(String userNumber, String answer) {
         int strike = 0;
         int ball = 0;
         for (int i = 0; i < NumberGenerator.NUMBER_LENGTH; i++) {
-            if (userNumber.charAt(i) == answer.charAt(i)) {
-                strike++;
-            } else {
-                ball++;
-            }
+            strike += Boolean.compare(checkStrike(userNumber, answer, i), false);
+            ball += Boolean.compare(checkBall(userNumber, answer, i), false);
         }
-        return new Baseball(strike, ball);
+        return new BallCount(strike, ball);
+    }
+
+    private boolean checkBall(String userNumber, String answer, int index) {
+        boolean isStrike = userNumber.charAt(index) != answer.charAt(index);
+        boolean isBall = answer.contains(String.valueOf(userNumber.charAt(index)));
+        return isStrike && isBall;
+    }
+
+    private boolean checkStrike(String userNumber, String answer, int index) {
+        return userNumber.charAt(index) == answer.charAt(index);
     }
 
     private boolean askContinue() throws IOException {
