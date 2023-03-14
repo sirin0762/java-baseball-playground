@@ -15,18 +15,18 @@ public class BaseballGame {
     public boolean start() throws IOException {
         String answer = numberGenerator.generate();
         System.out.println(answer);
-        while (!duringGame(answer));
+        while (!isDuringGame(answer));
         return askContinue();
     }
 
-    private boolean duringGame(String answer) throws IOException {
+    public boolean isDuringGame(String answer) throws IOException {
         String userNumber = input.input("숫자를 입력해주세요 : ");
         BallCount ballCount = getBallCount(userNumber, answer);
         output.showBallCount(ballCount);
-        return ballCount.isOut();
+        return isOut(ballCount);
     }
 
-    private BallCount getBallCount(String userNumber, String answer) {
+    public BallCount getBallCount(String userNumber, String answer) {
         int strike = 0;
         int ball = 0;
         for (int i = 0; i < NumberGenerator.NUMBER_LENGTH; i++) {
@@ -34,6 +34,10 @@ public class BaseballGame {
             ball += Boolean.compare(checkBall(userNumber, answer, i), false);
         }
         return new BallCount(strike, ball);
+    }
+
+    public boolean isOut(BallCount ballCount) {
+        return ballCount.getStrike() == NumberGenerator.NUMBER_LENGTH;
     }
 
     private boolean checkBall(String userNumber, String answer, int index) {

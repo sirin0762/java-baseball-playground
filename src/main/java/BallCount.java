@@ -16,7 +16,4 @@ public class BallCount {
         return ball;
     }
 
-    public boolean isOut() {
-        return this.strike == NumberGenerator.NUMBER_LENGTH;
-    }
 }
