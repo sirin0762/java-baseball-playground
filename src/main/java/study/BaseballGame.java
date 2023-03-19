@@ -24,12 +24,6 @@ public class BaseballGame {
         return askContinue();
     }
 
-    public List<Integer> getUserBalls() throws IOException {
-        String userNumber = input.input("숫자를 입력해주세요 : ");
-        return stringToIntegerList(userNumber);
-    }
-
-
     public boolean isDuringGame(Balls comBalls) throws IOException {
         Balls userBalls = new Balls(getUserBalls());
         BallCount ballCount = comBalls.compare(userBalls);
@@ -37,7 +31,11 @@ public class BaseballGame {
         return ballCount.isOut();
     }
 
-
+    public List<Integer> getUserBalls() throws IOException {
+        String userNumber = input.input("숫자를 입력해주세요 : ");
+        return stringToIntegerList(userNumber);
+    }
+    
     private List<Integer> stringToIntegerList(String answer) {
         return Arrays.stream(answer.split(""))
                 .map(Integer::parseInt)
