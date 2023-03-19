@@ -1,3 +1,5 @@
+package study;
+
 import java.io.IOException;
 
 public class Main {

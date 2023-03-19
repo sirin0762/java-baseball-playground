@@ -1,3 +1,5 @@
+package study;
+
 import java.text.MessageFormat;
 
 public class CliOutput implements Output {

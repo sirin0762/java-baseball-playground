@@ -10,6 +10,7 @@ public class NumberGenerator {
 
     public List<Integer> generate(int length) {
         inputNumbers(length);
+        System.out.println(numbers);
         return numbers;
     }
 

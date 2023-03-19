@@ -1,3 +1,5 @@
+package study;
+
 public interface Output {
 
     void show(String str);
